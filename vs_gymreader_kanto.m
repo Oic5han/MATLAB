@@ -1,957 +1,957 @@
-% ----- ‰Šú‰» -----
+% ----- åˆæœŸåŒ– -----
 clear all; close all
 
 
-% ----- ’è‹` -----
-% ü”g”
-fs = 48000;        % ƒTƒ“ƒvƒŠƒ“ƒOü”g”48kHz
-f_doll = 261.6/4;  % u‚³‚ç‚É’á‚¢ƒhv‚Ìü”g”
-f_dol = 261.6/2;   % u’á‚¢ƒhv‚Ìü”g”
-f_do = 261.6;      % Šî€‚Ìuƒhv‚Ìü”g”
-f_doh = 261.6*2;   % u‚‚¢ƒhv‚Ìü”g”
-f_dohh = 261.6*4;  % u‚³‚ç‚É‚‚¢ƒhv‚Ìü”g”
+% ----- å®šç¾© -----
+% å‘¨æ³¢æ•°
+fs = 48000;        % ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°å‘¨æ³¢æ•°48kHz
+f_doll = 261.6/4;  % ã€Œã•ã‚‰ã«ä½ã„ãƒ‰ã€ã®å‘¨æ³¢æ•°
+f_dol = 261.6/2;   % ã€Œä½ã„ãƒ‰ã€ã®å‘¨æ³¢æ•°
+f_do = 261.6;      % åŸºæº–ã®ã€Œãƒ‰ã€ã®å‘¨æ³¢æ•°
+f_doh = 261.6*2;   % ã€Œé«˜ã„ãƒ‰ã€ã®å‘¨æ³¢æ•°
+f_dohh = 261.6*4;  % ã€Œã•ã‚‰ã«é«˜ã„ãƒ‰ã€ã®å‘¨æ³¢æ•°
 
-% l•ª‰¹•„‚Ìİ’è
-N4 = 185;                       % 4•ª‰¹•„‚ª1•ªŠÔ‚É‰½ŒÂ‚ ‚é‚© ¨ ‹È‚Ì‘¬‚³
-n4sec = 60/N4;                  % 4•ª‰¹•„1ŒÂ‚Ì•b”
-n4smpl = round(fs*n4sec);       % 4•ª‰¹•„‚Ì1ŒÂ‚ÌƒTƒ“ƒvƒ‹”
-n4smpl = fix(n4smpl/16)*16;     % n4smpl‚ğ16‚Ì”{”‚É‚µ‚Ä‚¨‚­
+% å››åˆ†éŸ³ç¬¦ã®è¨­å®š
+N4 = 185;                       % 4åˆ†éŸ³ç¬¦ãŒ1åˆ†é–“ã«ä½•å€‹ã‚ã‚‹ã‹ â†’ æ›²ã®é€Ÿã•
+n4sec = 60/N4;                  % 4åˆ†éŸ³ç¬¦1å€‹ã®ç§’æ•°
+n4smpl = round(fs*n4sec);       % 4åˆ†éŸ³ç¬¦ã®1å€‹ã®ã‚µãƒ³ãƒ—ãƒ«æ•°
+n4smpl = fix(n4smpl/16)*16;     % n4smplã‚’16ã®å€æ•°ã«ã—ã¦ãŠã
 
-% ŠÔ•Ï”‚Ìì¬
-t0 = (1:8*n4smpl)/fs;               % ‘S‰¹•„*2‚ÌŠÔ•Ï”
-t1 = (1:4*n4smpl)/fs;               % ‘S‰¹•„‚ÌŠÔ•Ï”
-t2 = (1:2*n4smpl)/fs;               % 2•ª‰¹•„‚ÌŠÔ•Ï”
-t2futen = (1:3*n4smpl)/fs;          % •t“_2•ª‰¹•„‚ÌŠÔ•Ï” 
-t4 = (1:n4smpl)/fs;                 % 4•ª‰¹•„‚ÌŠÔ•Ï”
-t4futen = (1:3*n4smpl/2)/fs;        % •„“_4•ª‰¹•„‚ÌŠÔ•Ï”
-t8 = (1:n4smpl/2)/fs;               % 8•ª‰¹•„‚ÌŠÔ•Ï”
-t16 = (1:n4smpl/4)/fs;              % 16•ª‰¹•„‚ÌŠÔ•Ï”
-te = (1:1.5*fs)/fs;                 % 1.5•b
-te3 = (1:3*fs)/fs;                  % 3•b
+% æ™‚é–“å¤‰æ•°ã®ä½œæˆ
+t0 = (1:8*n4smpl)/fs;               % å…¨éŸ³ç¬¦*2ã®æ™‚é–“å¤‰æ•°
+t1 = (1:4*n4smpl)/fs;               % å…¨éŸ³ç¬¦ã®æ™‚é–“å¤‰æ•°
+t2 = (1:2*n4smpl)/fs;               % 2åˆ†éŸ³ç¬¦ã®æ™‚é–“å¤‰æ•°
+t2futen = (1:3*n4smpl)/fs;          % ä»˜ç‚¹2åˆ†éŸ³ç¬¦ã®æ™‚é–“å¤‰æ•° 
+t4 = (1:n4smpl)/fs;                 % 4åˆ†éŸ³ç¬¦ã®æ™‚é–“å¤‰æ•°
+t4futen = (1:3*n4smpl/2)/fs;        % ç¬¦ç‚¹4åˆ†éŸ³ç¬¦ã®æ™‚é–“å¤‰æ•°
+t8 = (1:n4smpl/2)/fs;               % 8åˆ†éŸ³ç¬¦ã®æ™‚é–“å¤‰æ•°
+t16 = (1:n4smpl/4)/fs;              % 16åˆ†éŸ³ç¬¦ã®æ™‚é–“å¤‰æ•°
+te = (1:1.5*fs)/fs;                 % 1.5ç§’
+te3 = (1:3*fs)/fs;                  % 3ç§’
 
-% ¬ß‚Ì’·‚³
-num2 = 4*2;                     % 1¬ß‚É4•ª‰¹•„‚ª4‚Â*2¬ß
-nall2 = n4smpl*num2;            % 2¬ß‚Ì’·‚³
+% å°ç¯€ã®é•·ã•
+num2 = 4*2;                     % 1å°ç¯€ã«4åˆ†éŸ³ç¬¦ãŒ4ã¤*2å°ç¯€
+nall2 = n4smpl*num2;            % 2å°ç¯€ã®é•·ã•
 
-% ‹x•„
-z1 = zeros(1, length(t1));      % ‘S‹x•„
-z2 = zeros(1, length(t2));      % 2•ª‹x•„
-z4 = zeros(1, length(t4));      % 4•ª‹x•„
-z8 = zeros(1, length(t8));      % 8•ª‹x•„
-z16 = zeros(1, length(t16));    % 16•ª‹x•„
+% ä¼‘ç¬¦
+z1 = zeros(1, length(t1));      % å…¨ä¼‘ç¬¦
+z2 = zeros(1, length(t2));      % 2åˆ†ä¼‘ç¬¦
+z4 = zeros(1, length(t4));      % 4åˆ†ä¼‘ç¬¦
+z8 = zeros(1, length(t8));      % 8åˆ†ä¼‘ç¬¦
+z16 = zeros(1, length(t16));    % 16åˆ†ä¼‘ç¬¦
 
-% w”Œ¸ŠŠÖ”
+% æŒ‡æ•°æ¸›è¡°é–¢æ•°
 ze = exp(-log(100)*te);
 ze3 = exp((log(0.01)/2.5)*te3);
 
 
-% ----- ³Œ·”g‚Ìì¬ -----
-% - ‘S‰¹•„*2
-% ƒtƒ@#
+% ----- çŸ©å½¢æ³¢ã§éŸ³éšã‚’ä½œæˆ -----
+% - å…¨éŸ³ç¬¦*2
+% ãƒ•ã‚¡#
 fas0 = 0;
 for ii = 1:2:49
     fas0 = fas0 + sin(2*pi*ii*f_do*2^(6/12)*t0)/ii;
 end
 
-% ƒŒ#i‚‚¢j
+% ãƒ¬#ï¼ˆé«˜ã„ï¼‰
 resh0 = 0;
 for ii = 1:2:49
     resh0 = resh0 + sin(2*pi*ii*f_doh*2^(3/12)*t0)/ii;
 end
 
-% ƒVi‚‚¢j
+% ã‚·ï¼ˆé«˜ã„ï¼‰
 shih0 = 0;
 for ii = 1:2:49
     shih0 = shih0 + sin(2*pi*ii*f_doh*2^(11/12)*t0)/ii;
 end
 
-% - ‘S‰¹•„
-% ƒVi‚³‚ç‚É’á‚¢j
+% - å…¨éŸ³ç¬¦
+% ã‚·ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 shill1 = 0;
 for ii = 1:2:49
     shill1 = shill1 + sin(2*pi*ii*f_doll*2^(11/12)*t1)/ii;
 end
 
-% ƒŒ#i’á‚¢j
+% ãƒ¬#ï¼ˆä½ã„ï¼‰
 resl1 = 0;
 for ii = 1:2:49
     resl1 = resl1 + sin(2*pi*ii*f_dol*2^(3/12)*t1)/ii;
 end
 
-% ƒV
+% ã‚·
 shi1 = 0;
 for ii = 1:2:49
     shi1 = shi1 + sin(2*pi*ii*f_do*2^(11/12)*t1)/ii;
 end
 
-% ƒŒ#i‚‚¢j
+% ãƒ¬#ï¼ˆé«˜ã„ï¼‰
 resh1 = 0;
 for ii = 1:2:49
     resh1 = resh1 + sin(2*pi*ii*f_doh*2^(3/12)*t1)/ii;
 end
 
-% ƒtƒ@#i‚‚¢j
+% ãƒ•ã‚¡#ï¼ˆé«˜ã„ï¼‰
 fash1 = 0;
 for ii = 1:2:49
     fash1 = fash1 + sin(2*pi*ii*f_doh*2^(6/12)*t1)/ii;
 end
 
-% ƒ‰i‚‚¢j
+% ãƒ©ï¼ˆé«˜ã„ï¼‰
 rah1 = 0;
 for ii = 1:2:49
     rah1 = rah1 + sin(2*pi*ii*f_doh*2^(9/12)*t1)/ii;
 end
 
-% ƒVi‚‚¢j
+% ã‚·ï¼ˆé«˜ã„ï¼‰
 shih1 = 0;
 for ii = 1:2:49
     shih1 = shih1 + sin(2*pi*ii*f_doh*2^(11/12)*t1)/ii;
 end
 
-% - 2•ª‰¹•„
-% ƒh#i’á‚¢j
+% - 2åˆ†éŸ³ç¬¦
+% ãƒ‰#ï¼ˆä½ã„ï¼‰
 dosl2 = 0;
 for ii = 1:2:49
     dosl2 = dosl2 + sin(2*pi*ii*f_dol*2^(1/12)*t2)/ii;
 end
 
-% ƒ~i’á‚¢j
+% ãƒŸï¼ˆä½ã„ï¼‰
 mil2 = 0;
 for ii = 1:2:49
     mil2 = mil2 + sin(2*pi*ii*f_dol*2^(4/12)*t2)/ii;
 end
 
-% ƒ‰
+% ãƒ©
 ra2 = 0;
 for ii = 1:2:49
     ra2 = ra2 + sin(2*pi*ii*f_do*2^(9/12)*t2)/ii;
 end
 
-% ƒV
+% ã‚·
 shi2 = 0;
 for ii = 1:2:49
     shi2 = shi2 + sin(2*pi*ii*f_do*2^(11/12)*t2)/ii;
 end
 
-% ƒh#i‚‚¢j
+% ãƒ‰#ï¼ˆé«˜ã„ï¼‰
 dosh2 = 0;
 for ii = 1:2:49
 	dosh2 = dosh2 + sin(2*pi*ii*f_doh*2^(1/12)*t2)/ii;
 end
 
-% ƒ~i‚‚¢j
+% ãƒŸï¼ˆé«˜ã„ï¼‰
 mih2 = 0;
 for ii = 1:2:49
 	mih2 = mih2 + sin(2*pi*ii*f_doh*2^(4/12)*t2)/ii;
 end
 
-% ƒ‰i‚‚¢j
+% ãƒ©ï¼ˆé«˜ã„ï¼‰
 rah2 = 0;
 for ii = 1:2:49
 	rah2 = rah2 + sin(2*pi*ii*f_doh*2^(9/12)*t2)/ii;
 end
 
-% ƒh#i‚³‚ç‚É‚‚¢j
+% ãƒ‰#ï¼ˆã•ã‚‰ã«é«˜ã„ï¼‰
 doshh2 = 0;
 for ii = 1:2:49
 	doshh2 = doshh2 + sin(2*pi*ii*f_dohh*2^(1/12)*t2)/ii;
 end
 
-% - •t“_2•ª‰¹•„
-% ƒh#i’á‚¢j
+% - ä»˜ç‚¹2åˆ†éŸ³ç¬¦
+% ãƒ‰#ï¼ˆä½ã„ï¼‰
 dosl2fu = 0;
 for ii = 1:2:49
 	dosl2fu = dosl2fu + sin(2*pi*ii*f_dol^(1/12)*t2futen)/ii;
 end
 
-% ƒ~i’á‚¢j
+% ãƒŸï¼ˆä½ã„ï¼‰
 mil2fu = 0;
 for ii = 1:2:49
 	mil2fu = mil2fu + sin(2*pi*ii*f_dol*2^(4/12)*t2futen)/ii;
 end
 
-% ƒh#
+% ãƒ‰#
 dos2fu = 0;
 for ii = 1:2:49
     dos2fu = dos2fu + sin(2*pi*ii*f_do*2^(1/12)*t2futen)/ii;
 end
 
-% ƒ~
+% ãƒŸ
 mi2fu = 0;
 for ii = 1:2:49
 	mi2fu = mi2fu + sin(2*pi*ii*f_do*2^(4/12)*t2futen)/ii;
 end
 
-% ƒ‰
+% ãƒ©
 ra2fu = 0;
 for ii = 1:2:49
 	ra2fu = ra2fu + sin(2*pi*ii*f_do*2^(9/12)*t2futen)/ii;
 end
 
-% ƒhi‚‚¢j
+% ãƒ‰ï¼ˆé«˜ã„ï¼‰
 doh2fu = 0;
 for ii = 1:2:49
 	doh2fu = doh2fu + sin(2*pi*ii*f_doh*t2futen)/ii;
 end
 
-% ƒh#i‚‚¢j
+% ãƒ‰#ï¼ˆé«˜ã„ï¼‰
 dosh2fu = 0;
 for ii = 1:2:49
 	dosh2fu = dosh2fu + sin(2*pi*ii*f_doh*2^(1/12)*t2futen)/ii;
 end
 
-% - 4•ª‰¹•„
-% ƒ\i‚³‚ç‚É’á‚¢j
+% - 4åˆ†éŸ³ç¬¦
+% ã‚½ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 soll4 = 0;
 for ii = 1:2:49
 	soll4 = soll4 + sin(2*pi*ii*f_doll*2^(7/12)*t4)/ii;
 end
 
-% ƒ\#i‚³‚ç‚É’á‚¢j
+% ã‚½#ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 sosll4 = 0;
 for ii = 1:2:49
 	sosll4 = sosll4 + sin(2*pi*ii*f_doll*2^(8/12)*t4)/ii;
 end
 
-% ƒ‰i‚³‚ç‚É’á‚¢j
+% ãƒ©ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 rall4 = 0;
 for ii = 1:2:49
 	rall4 = rall4 + sin(2*pi*ii*f_doll*2^(9/12)*t4)/ii;
 end
 
-% ƒ‰#i‚³‚ç‚É’á‚¢j
+% ãƒ©#ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 rasll4 = 0;
 for ii = 1:2:49
 	rasll4 = rasll4 + sin(2*pi*ii*f_doll*2^(10/12)*t4)/ii;
 end
 
-% ƒVi‚³‚ç‚É’á‚¢j
+% ã‚·ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 shill4 = 0;
 for ii = 1:2:49
 	shill4 = shill4 + sin(2*pi*ii*f_doll*2^(11/12)*t4)/ii;
 end
 
-% ƒhi’á‚¢j
+% ãƒ‰ï¼ˆä½ã„ï¼‰
 dol4 = 0;
 for ii = 1:2:49
 	dol4 = dol4 + sin(2*pi*ii*f_dol*t4)/ii;
 end
 
-% ƒh#i’á‚¢j
+% ãƒ‰#ï¼ˆä½ã„ï¼‰
 dosl4 = 0;
 for ii = 1:2:49
 	dosl4 = dosl4 + sin(2*pi*ii*f_dol*2^(1/12)*t4)/ii;
 end
 
-% ƒŒi’á‚¢j
+% ãƒ¬ï¼ˆä½ã„ï¼‰
 rel4 = 0;
 for ii = 1:2:49
 	rel4 = rel4 + sin(2*pi*ii*f_dol*2^(2/12)*t4)/ii;
 end
 
-% ƒŒ#i’á‚¢j
+% ãƒ¬#ï¼ˆä½ã„ï¼‰
 resl4 = 0;
 for ii = 1:2:49
     resl4 = resl4 + sin(2*pi*ii*f_dol*2^(3/12)*t4)/ii;
 end
 
-% ƒ~i’á‚¢j
+% ãƒŸï¼ˆä½ã„ï¼‰
 mil4 = 0;
 for ii = 1:2:49
 	mil4 = mil4 + sin(2*pi*ii*f_dol*2^(4/12)*t4)/ii;
 end
 
-% ƒtƒ@i’á‚¢j
+% ãƒ•ã‚¡ï¼ˆä½ã„ï¼‰
 fal4 = 0;
 for ii = 1:2:49
 	fal4 = fal4 + sin(2*pi*ii*f_dol*2^(5/12)*t4)/ii;
 end
 
-% ƒtƒ@#i’á‚¢j
+% ãƒ•ã‚¡#ï¼ˆä½ã„ï¼‰
 fasl4 = 0;
 for ii = 1:2:49
 	fasl4 = fasl4 + sin(2*pi*ii*f_dol*2^(6/12)*t4)/ii;
 end
 
-% ƒ\i’á‚¢j
+% ã‚½ï¼ˆä½ã„ï¼‰
 sol4 = 0;
 for ii = 1:2:49
 	sol4 = sol4 + sin(2*pi*ii*f_dol*2^(7/12)*t4)/ii;
 end
 
-% ƒ\#i’á‚¢j
+% ã‚½#ï¼ˆä½ã„ï¼‰
 sosl4 = 0;
 for ii = 1:2:49
 	sosl4 = sosl4 + sin(2*pi*ii*f_dol*2^(8/12)*t4)/ii;
 end
 
-% ƒ‰i’á‚¢j
+% ãƒ©ï¼ˆä½ã„ï¼‰
 ral4 = 0;
 for ii = 1:2:49
 	ral4 = ral4 + sin(2*pi*ii*f_dol*2^(9/12)*t4)/ii;
 end
 
-% ƒ‰#i’á‚¢j
+% ãƒ©#ï¼ˆä½ã„ï¼‰
 rasl4 = 0;
 for ii = 1:2:49
 	rasl4 = rasl4 + sin(2*pi*ii*f_dol*2^(10/12)*t4)/ii;
 end
 
-% ƒVi’á‚¢j
+% ã‚·ï¼ˆä½ã„ï¼‰
 shil4 = 0;
 for ii = 1:2:49
 	shil4 = shil4 + sin(2*pi*ii*f_dol*2^(11/12)*t4)/ii;
 end
 
-% ƒh
+% ãƒ‰
 do4 = 0;
 for ii = 1:2:49
 	do4 = do4 + sin(2*pi*ii*f_do*t4)/ii;
 end
 
-% ƒh#
+% ãƒ‰#
 dos4 = 0;
 for ii = 1:2:49
 	dos4 = dos4 + sin(2*pi*ii*f_do*2^(1/12)*t4)/ii;
 end
 
-% ƒŒ
+% ãƒ¬
 re4 = 0;
 for ii = 1:2:49
 	re4 = re4 + sin(2*pi*ii*f_do*2^(2/12)*t4)/ii;
 end
 
-% ƒŒ#
+% ãƒ¬#
 res4 = 0;
 for ii = 1:2:49
 	res4 = res4 + sin(2*pi*ii*f_do*2^(3/12)*t4)/ii;
 end
 
-% ƒ~
+% ãƒŸ
 mi4 = 0;
 for ii = 1:2:49
 	mi4 = mi4 + sin(2*pi*ii*f_do*2^(4/12)*t4)/ii;
 end
 
-% ƒtƒ@
+% ãƒ•ã‚¡
 fa4 = 0;
 for ii = 1:2:49
 	fa4 = fa4 + sin(2*pi*ii*f_do*2^(5/12)*t4)/ii;
 end
 
-% ƒtƒ@#
+% ãƒ•ã‚¡#
 fas4 = 0;
 for ii = 1:2:49
 	fas4 = fas4 + sin(2*pi*ii*f_do*2^(6/12)*t4)/ii;
 end
 
-% ƒ\
+% ã‚½
 so4 = 0;
 for ii = 1:2:49
 	so4 = so4 + sin(2*pi*ii*f_do*2^(7/12)*t4)/ii;
 end
 
-% ƒ\#
+% ã‚½#
 sos4 = 0;
 for ii = 1:2:49
 	sos4 = sos4 + sin(2*pi*ii*f_do*2^(8/12)*t4)/ii;
 end
 
-% ƒ‰
+% ãƒ©
 ra4 = 0;
 for ii = 1:2:49
 	ra4 = ra4 + sin(2*pi*ii*f_do*2^(9/12)*t4)/ii;
 end
 
-% ƒ‰#
+% ãƒ©#
 ras4 = 0;
 for ii = 1:2:49
 	ras4 = ras4 + sin(2*pi*ii*f_do*2^(10/12)*t4)/ii;
 end
 
-% ƒV
+% ã‚·
 shi4 = 0;
 for ii = 1:2:49
 	shi4 = shi4 + sin(2*pi*ii*f_do*2^(11/12)*t4)/ii;
 end
 
-% ƒhi‚‚¢j
+% ãƒ‰ï¼ˆé«˜ã„ï¼‰
 doh4 = 0;
 for ii = 1:2:49
 	doh4 = doh4 + sin(2*pi*ii*f_doh*t4)/ii;
 end
 
-% ƒh#i‚‚¢j
+% ãƒ‰#ï¼ˆé«˜ã„ï¼‰
 dosh4 = 0;
 for ii = 1:2:49
 	dosh4 = dosh4 + sin(2*pi*ii*f_doh*2^(1/12)*t4)/ii;
 end
 
-% ƒŒi‚‚¢j
+% ãƒ¬ï¼ˆé«˜ã„ï¼‰
 reh4 = 0;
 for ii = 1:2:49
 	reh4 = reh4 + sin(2*pi*ii*f_doh*2^(2/12)*t4)/ii;
 end
 
-% ƒŒ#i‚‚¢j
+% ãƒ¬#ï¼ˆé«˜ã„ï¼‰
 resh4 = 0;
 for ii = 1:2:49
 	resh4 = resh4 + sin(2*pi*ii*f_doh*2^(3/12)*t4)/ii;
 end
 
-% ƒ~i‚‚¢j
+% ãƒŸï¼ˆé«˜ã„ï¼‰
 mih4 = 0;
 for ii = 1:2:49
 	mih4 = mih4 + sin(2*pi*ii*f_doh*2^(4/12)*t4)/ii;
 end
 
-% ƒtƒ@i‚‚¢j
+% ãƒ•ã‚¡ï¼ˆé«˜ã„ï¼‰
 fah4 = 0;
 for ii = 1:2:49
 	fah4 = fah4 + sin(2*pi*ii*f_doh*2^(5/12)*t4)/ii;
 end
 
-% ƒtƒ@#i‚‚¢j
+% ãƒ•ã‚¡#ï¼ˆé«˜ã„ï¼‰
 fash4 = 0;
 for ii = 1:2:49
 	fash4 = fash4 + sin(2*pi*ii*f_doh*2^(6/12)*t4)/ii;
 end
 
-% ƒ\#i‚‚¢j
+% ã‚½#ï¼ˆé«˜ã„ï¼‰
 sosh4 = 0;
 for ii = 1:2:49
 	sosh4 = sosh4 + sin(2*pi*ii*f_doh*2^(8/12)*t4)/ii;
 end
 
-% - 8•ª‰¹•„
-% ƒ\i‚³‚ç‚É’á‚¢j
+% - 8åˆ†éŸ³ç¬¦
+% ã‚½ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 soll8 = 0;
 for ii = 1:2:49
 	soll8 = soll8 + sin(2*pi*ii*f_doll*2^(7/12)*t8)/ii;
 end
 
-% ƒ\#i‚³‚ç‚É’á‚¢j
+% ã‚½#ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 sosll8 = 0;
 for ii = 1:2:49
 	sosll8 = sosll8 + sin(2*pi*ii*f_doll*2^(8/12)*t8)/ii;
 end
 
-% ƒ‰i‚³‚ç‚É’á‚¢j
+% ãƒ©ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 rall8 = 0;
 for ii = 1:2:49
 	rall8 = rall8 + sin(2*pi*ii*f_doll*2^(9/12)*t8)/ii;
 end
 
-% ƒ‰#i‚³‚ç‚É’á‚¢j
+% ãƒ©#ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 rasll8 = 0;
 for ii = 1:2:49
 	rasll8 = rasll8 + sin(2*pi*ii*f_doll*2^(10/12)*t8)/ii;
 end
 
-% ƒVi‚³‚ç‚É’á‚¢j
+% ã‚·ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 shill8 = 0;
 for ii = 1:2:49
 	shill8 = shill8 + sin(2*pi*ii*f_doll*2^(11/12)*t8)/ii;
 end
 
-% ƒhi’á‚¢j
+% ãƒ‰ï¼ˆä½ã„ï¼‰
 dol8 = 0;
 for ii = 1:2:49
 	dol8 = dol8 + sin(2*pi*ii*f_dol*t8)/ii;
 end
 
-% ƒh#i’á‚¢j
+% ãƒ‰#ï¼ˆä½ã„ï¼‰
 dosl8 = 0;
 for ii = 1:2:49
 	dosl8 = dosl8 + sin(2*pi*ii*f_dol*2^(1/12)*t8)/ii;
 end
 
-% ƒŒi’á‚¢j
+% ãƒ¬ï¼ˆä½ã„ï¼‰
 rel8 = 0;
 for ii = 1:2:49
 	rel8 = rel8 + sin(2*pi*ii*f_dol*2^(2/12)*t8)/ii;
 end
 
-% ƒŒ#i’á‚¢j
+% ãƒ¬#ï¼ˆä½ã„ï¼‰
 resl8 = 0;
 for ii = 1:2:49
 	resl8 = resl8 + sin(2*pi*ii*f_dol*2^(3/12)*t8)/ii;
 end
 
-% ƒ~i’á‚¢j
+% ãƒŸï¼ˆä½ã„ï¼‰
 mil8 = 0;
 for ii = 1:2:49
 	mil8 = mil8 + sin(2*pi*ii*f_dol*2^(4/12)*t8)/ii;
 end
 
-% ƒtƒ@i’á‚¢j
+% ãƒ•ã‚¡ï¼ˆä½ã„ï¼‰
 fal8 = 0;
 for ii = 1:2:49
 	fal8 = fal8 + sin(2*pi*ii*f_dol*2^(5/12)*t8)/ii;
 end
 
-% ƒtƒ@#i’á‚¢j
+% ãƒ•ã‚¡#ï¼ˆä½ã„ï¼‰
 fasl8 = 0;
 for ii = 1:2:49
 	fasl8 = fasl8 + sin(2*pi*ii*f_dol*2^(6/12)*t8)/ii;
 end
 
-% ƒ\i’á‚¢j
+% ã‚½ï¼ˆä½ã„ï¼‰
 sol8 = 0;
 for ii = 1:2:49
 	sol8 = sol8 + sin(2*pi*ii*f_dol*2^(7/12)*t8)/ii;
 end
 
-% ƒ\#i’á‚¢j
+% ã‚½#ï¼ˆä½ã„ï¼‰
 sosl8 = 0;
 for ii = 1:2:49
 	sosl8 = sosl8 + sin(2*pi*ii*f_dol*2^(8/12)*t8)/ii;
 end
 
-% ƒ‰i’á‚¢j
+% ãƒ©ï¼ˆä½ã„ï¼‰
 ral8 = 0;
 for ii = 1:2:49
 	ral8 = ral8 + sin(2*pi*ii*f_dol*2^(9/12)*t8)/ii;
 end
 
-% ƒ‰#i’á‚¢j
+% ãƒ©#ï¼ˆä½ã„ï¼‰
 rasl8 = 0;
 for ii = 1:2:49
 	rasl8 = rasl8 + sin(2*pi*ii*f_dol*2^(10/12)*t8)/ii;
 end
 
-% ƒVi’á‚¢j
+% ã‚·ï¼ˆä½ã„ï¼‰
 shil8 = 0;
 for ii = 1:2:49
 	shil8 = shil8 + sin(2*pi*ii*f_dol*2^(11/12)*t8)/ii;
 end
 
-% ƒh
+% ãƒ‰
 do8 = 0;
 for ii = 1:2:49
 	do8 = do8 + sin(2*pi*ii*f_do*t8)/ii;
 end
 
-% ƒh#
+% ãƒ‰#
 dos8 = 0;
 for ii = 1:2:49
 	dos8 = dos8 + sin(2*pi*ii*f_do*2^(1/12)*t8)/ii;
 end
 
-% ƒŒ
+% ãƒ¬
 re8 = 0;
 for ii = 1:2:49
 	re8 = re8 + sin(2*pi*ii*f_do*2^(2/12)*t8)/ii;
 end
 
-% ƒŒ#
+% ãƒ¬#
 res8 = 0;
 for ii = 1:2:49
 	res8 = res8 + sin(2*pi*ii*f_do*2^(3/12)*t8)/ii;
 end
 
-% ƒ~
+% ãƒŸ
 mi8 = 0;
 for ii = 1:2:49
 	mi8 = mi8 + sin(2*pi*ii*f_do*2^(4/12)*t8)/ii;
 end
 
-% ƒtƒ@
+% ãƒ•ã‚¡
 fa8 = 0;
 for ii = 1:2:49
 	fa8 = fa8 + sin(2*pi*ii*f_do*2^(5/12)*t8)/ii;
 end
 
-% ƒtƒ@#
+% ãƒ•ã‚¡#
 fas8 = 0;
 for ii = 1:2:49
 	fas8 = fas8 + sin(2*pi*ii*f_do*2^(6/12)*t8)/ii;
 end
 
-% ƒ\
+% ã‚½
 so8 = 0;
 for ii = 1:2:49
 	so8 = so8 + sin(2*pi*ii*f_do*2^(7/12)*t8)/ii;
 end
 
-% ƒ\#
+% ã‚½#
 sos8 = 0;
 for ii = 1:2:49
 	sos8 = sos8 + sin(2*pi*ii*f_do*2^(8/12)*t8)/ii;
 end
 
-% ƒ‰
+% ãƒ©
 ra8 = 0;
 for ii = 1:2:49
 	ra8 = ra8 + sin(2*pi*ii*f_do*2^(9/12)*t8)/ii;
 end
 
-% ƒ‰#
+% ãƒ©#
 ras8 = 0;
 for ii = 1:2:49
 	ras8 =ras8 + sin(2*pi*ii*f_do*2^(10/12)*t8)/ii;
 end
 
-% ƒV
+% ã‚·
 shi8 = 0;
 for ii = 1:2:49
 	shi8 = shi8 + sin(2*pi*ii*f_do*2^(11/12)*t8)/ii;
 end
 
-% ƒhi‚‚¢j
+% ãƒ‰ï¼ˆé«˜ã„ï¼‰
 doh8 = 0;
 for ii = 1:2:49
 	doh8 = doh8 + sin(2*pi*ii*f_doh*t8)/ii;
 end
 
-% ƒŒi‚‚¢j
+% ãƒ¬ï¼ˆé«˜ã„ï¼‰
 reh8 = 0;
 for ii = 1:2:49
 	reh8 = reh8 + sin(2*pi*ii*f_doh*2^(2/12)*t8)/ii;
 end
 
-% ƒh#i‚‚¢j
+% ãƒ‰#ï¼ˆé«˜ã„ï¼‰
 dosh8 = 0;
 for ii = 1:2:49
 	dosh8 = dosh8 + sin(2*pi*ii*f_doh*2^(1/12)*t8)/ii;
 end
 
-% ƒŒ#i‚‚¢j
+% ãƒ¬#ï¼ˆé«˜ã„ï¼‰
 resh8 = 0;
 for ii = 1:2:49
 	resh8 = resh8 + sin(2*pi*ii*f_doh*2^(3/12)*t8)/ii;
 end
 
-% ƒ~i‚‚¢j
+% ãƒŸï¼ˆé«˜ã„ï¼‰
 mih8 = 0;
 for ii = 1:2:49
 	mih8 = mih8 + sin(2*pi*ii*f_doh*2^(4/12)*t8)/ii;
 end
 
-% ƒtƒ@i‚‚¢j
+% ãƒ•ã‚¡ï¼ˆé«˜ã„ï¼‰
 fah8 = 0;
 for ii = 1:2:49
     fah8 = fah8 + sin(2*pi*ii*f_doh*2^(5/12)*t8)/ii;
 end
 
-% ƒ‰i‚‚¢j
+% ãƒ©ï¼ˆé«˜ã„ï¼‰
 rah8 = 0;
 for ii = 1:2:49
 	rah8 = rah8 + sin(2*pi*ii*f_doh*2^(9/12)*t8)/ii;
 end
 
-% - 16•ª‰¹•„
-% ƒ\i‚³‚ç‚É’á‚¢j
+% - 16åˆ†éŸ³ç¬¦
+% ã‚½ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 soll16 = 0;
 for ii = 1:2:49
 	soll16 = soll16 + sin(2*pi*ii*f_doll*2^(7/12)*t16)/ii;
 end
 
-% ƒ\#i‚³‚ç‚É’á‚¢j
+% ã‚½#ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 sosll16 = 0;
 for ii = 1:2:49
 	sosll16 = sosll16 + sin(2*pi*ii*f_doll*2^(8/12)*t16)/ii;
 end
 
-% ƒ‰i‚³‚ç‚É’á‚¢j
+% ãƒ©ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 rall16 = 0;
 for ii = 1:2:49
 	rall16 = rall16 + sin(2*pi*ii*f_doll*2^(9/12)*t16)/ii;
 end
 
-% ƒ‰#i‚³‚ç‚É’á‚¢j
+% ãƒ©#ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 rasll16 = 0;
 for ii = 1:2:49
 	rasll16 = rasll16 + sin(2*pi*ii*f_doll*2^(10/12)*t16)/ii;
 end
 
-% ƒVi‚³‚ç‚É’á‚¢j
+% ã‚·ï¼ˆã•ã‚‰ã«ä½ã„ï¼‰
 shill16 = 0;
 for ii = 1:2:49
 	shill16 = shill16 + sin(2*pi*ii*f_doll*2^(11/12)*t16)/ii;
 end
 
-% ƒhi’á‚¢j
+% ãƒ‰ï¼ˆä½ã„ï¼‰
 dol16 = 0;
 for ii = 1:2:49
 	dol16 = dol16 + sin(2*pi*ii*f_dol*t16)/ii;
 end
 
-% ƒh#i’á‚¢j
+% ãƒ‰#ï¼ˆä½ã„ï¼‰
 dosl16 = 0;
 for ii = 1:2:49
 	dosl16 = dosl16 + sin(2*pi*ii*f_dol*2^(1/12)*t16)/ii;
 end
 
-% ƒŒi’á‚¢j
+% ãƒ¬ï¼ˆä½ã„ï¼‰
 rel16 = 0;
 for ii = 1:2:49
 	rel16 = rel16 + sin(2*pi*ii*f_dol*2^(2/12)*t16)/ii;
 end
 
-% ƒŒ#i’á‚¢j
+% ãƒ¬#ï¼ˆä½ã„ï¼‰
 resl16 = 0;
 for ii = 1:2:49
 	resl16 = resl16 + sin(2*pi*ii*f_dol*2^(3/12)*t16)/ii;
 end
 
-% ƒ~i’á‚¢j
+% ãƒŸï¼ˆä½ã„ï¼‰
 mil16 = 0;
 for ii = 1:2:49
 	mil16 = mil16 + sin(2*pi*ii*f_dol*2^(4/12)*t16)/ii;
 end
 
-% ƒtƒ@i’á‚¢j
+% ãƒ•ã‚¡ï¼ˆä½ã„ï¼‰
 fal16 = 0;
 for ii = 1:2:49
 	fal16 = fal16 + sin(2*pi*ii*f_dol*2^(5/12)*t16)/ii;
 end
 
-% ƒtƒ@#i’á‚¢j
+% ãƒ•ã‚¡#ï¼ˆä½ã„ï¼‰
 fasl16 = 0;
 for ii = 1:2:49
 	fasl16 = fasl16 + sin(2*pi*ii*f_dol*2^(6/12)*t16)/ii;
 end
 
-% ƒ\i’á‚¢j
+% ã‚½ï¼ˆä½ã„ï¼‰
 sol16 = 0;
 for ii = 1:2:49
 	sol16 = sol16 + sin(2*pi*ii*f_dol*2^(7/12)*t16)/ii;
 end
 
-% ƒ\#i’á‚¢j
+% ã‚½#ï¼ˆä½ã„ï¼‰
 sosl16 = 0;
 for ii = 1:2:49
 	sosl16 = sosl16 + sin(2*pi*ii*f_dol*2^(8/12)*t16)/ii;
 end
 
-% ƒ‰i’á‚¢j
+% ãƒ©ï¼ˆä½ã„ï¼‰
 ral16 = 0;
 for ii = 1:2:49
 	ral16 = ral16 + sin(2*pi*ii*f_dol*2^(9/12)*t16)/ii;
 end
 
-% ƒ‰#i’á‚¢j
+% ãƒ©#ï¼ˆä½ã„ï¼‰
 rasl16 = 0;
 for ii = 1:2:49
 	rasl16 = rasl16 + sin(2*pi*ii*f_dol*2^(10/12)*t16)/ii;
 end
 
-% ƒVi’á‚¢j
+% ã‚·ï¼ˆä½ã„ï¼‰
 shil16 = 0;
 for ii = 1:2:49
 	shil16 = shil16 + sin(2*pi*ii*f_dol*2^(11/12)*t16)/ii;
 end
 
-% ƒh
+% ãƒ‰
 do16 = 0;
 for ii = 1:2:49
 	do16 = do16 + sin(2*pi*ii*f_do*t16)/ii;
 end
 
-% ƒh#
+% ãƒ‰#
 dos16 = 0;
 for ii = 1:2:49
 	dos16 = dos16 + sin(2*pi*ii*f_do*2^(1/12)*t16)/ii;
 end
 
-% ƒŒ
+% ãƒ¬
 re16 = 0;
 for ii = 1:2:49
 	re16 = re16 + sin(2*pi*ii*f_do*2^(2/12)*t16)/ii;
 end
 
-% ƒŒ#
+% ãƒ¬#
 res16 = 0;
 for ii = 1:2:49
 	res16 = res16 + sin(2*pi*ii*f_do*2^(3/12)*t16)/ii;
 end
 
-% ƒ~
+% ãƒŸ
 mi16 = 0;
 for ii = 1:2:49
 	mi16 = mi16 + sin(2*pi*ii*f_do*2^(4/12)*t16)/ii;
 end
 
-% ƒtƒ@
+% ãƒ•ã‚¡
 fa16 = 0;
 for ii = 1:2:49
 	fa16 = fa16 + sin(2*pi*ii*f_do*2^(5/12)*t16)/ii;
 end
 
-% ƒtƒ@#
+% ãƒ•ã‚¡#
 fas16 = 0;
 for ii = 1:2:49
 	fas16 = fas16 + sin(2*pi*ii*f_do*2^(6/12)*t16)/ii;
 end
 
-% ƒ\
+% ã‚½
 so16 = 0;
 for ii = 1:2:49
 	so16 = so16 + sin(2*pi*ii*f_do*2^(7/12)*t16)/ii;
 end
 
-% ƒ\#
+% ã‚½#
 sos16 = 0;
 for ii = 1:2:49
 	sos16 = sos16 + sin(2*pi*ii*f_do*2^(8/12)*t16)/ii;
 end
 
-% ƒ‰
+% ãƒ©
 ra16 = 0;
 for ii = 1:2:49
 	ra16 = ra16 + sin(2*pi*ii*f_do*2^(9/12)*t16)/ii;
 end
 
-% ƒ‰#
+% ãƒ©#
 ras16 = 0;
 for ii = 1:2:49
 	ras16 = ras16 + sin(2*pi*ii*f_do*2^(10/12)*t16)/ii;
 end
 
-% ƒV
+% ã‚·
 shi16 = 0;
 for ii = 1:2:49
 	shi16 = shi16 + sin(2*pi*ii*f_do*2^(11/12)*t16)/ii;
 end
 
-% ƒhi‚‚¢j
+% ãƒ‰ï¼ˆé«˜ã„ï¼‰
 doh16 = 0;
 for ii = 1:2:49
 	doh16 = doh16 + sin(2*pi*ii*f_doh*t16)/ii;
 end
 
-% ƒŒi‚‚¢j
+% ãƒ¬ï¼ˆé«˜ã„ï¼‰
 reh16 = 0;
 for ii = 1:2:49
 	reh16 = reh16 + sin(2*pi*ii*f_doh*2^(2/12)*t16)/ii;
 end
 
-% ƒh#i‚‚¢j
+% ãƒ‰#ï¼ˆé«˜ã„ï¼‰
 dosh16 = 0;
 for ii = 1:2:49
 	dosh16 = dosh16 + sin(2*pi*ii*f_doh*2^(1/12)*t16)/ii;
 end
 
-% ƒŒ#i‚‚¢j
+% ãƒ¬#ï¼ˆé«˜ã„ï¼‰
 resh16 = 0;
 for ii = 1:2:49
 	resh16 = resh16 + sin(2*pi*ii*f_doh*2^(3/12)*t16)/ii;
 end
 
-% ƒ~i‚‚¢j
+% ãƒŸï¼ˆé«˜ã„ï¼‰
 mih16 = 0;
 for ii = 1:2:49
 	mih16 = mih16 + sin(2*pi*ii*f_doh*2^(4/12)*t16)/ii;
 end
 
-% ƒtƒ@i‚‚¢j
+% ãƒ•ã‚¡ï¼ˆé«˜ã„ï¼‰
 fah16 = 0;
 for ii = 1:2:49
 	fah16 = fah16 + sin(2*pi*ii*f_doh*2^(5/12)*t16)/ii;
 end
 
-% ƒtƒ@#i‚‚¢j
+% ãƒ•ã‚¡#ï¼ˆé«˜ã„ï¼‰
 fash16 = 0;
 for ii = 1:2:49
 	fash16 = fash16 + sin(2*pi*ii*f_doh*2^(6/12)*t16)/ii;
 end
 
-% ƒ‰i‚‚¢j
+% ãƒ©ï¼ˆé«˜ã„ï¼‰
 rah16 = 0;
 for ii = 1:2:49
 	rah16 = rah16 + sin(2*pi*ii*f_doh*2^(9/12)*t16)/ii;
 end
 
-% •„“_4•ª‰¹•„
-% ƒhi’á‚¢j
+% ç¬¦ç‚¹4åˆ†éŸ³ç¬¦
+% ãƒ‰ï¼ˆä½ã„ï¼‰
 dol4fu = 0;
 for ii = 1:2:49
 	dol4fu = dol4fu + sin(2*pi*ii*f_dol*t4futen)/ii;
 end
 
-% ƒh#i’á‚¢j
+% ãƒ‰#ï¼ˆä½ã„ï¼‰
 dosl4fu = 0;
 for ii = 1:2:49
 	dosl4fu = dosl4fu + sin(2*pi*ii*f_dol^(1/12)*t4futen)/ii;
 end
 
-% ƒ~i’á‚¢j
+% ãƒŸï¼ˆä½ã„ï¼‰
 mil4fu = 0;
 for ii = 1:2:49
     mil4fu = mil4fu + sin(2*pi*ii*f_dol*2^(4/12)*t4futen)/ii;
 end
 
-% ƒtƒ@i’á‚¢j
+% ãƒ•ã‚¡ï¼ˆä½ã„ï¼‰
 fal4fu = 0;
 for ii = 1:2:49
 	fal4fu = fal4fu + sin(2*pi*ii*f_dol*2^(5/12)*t4futen)/ii;
 end
 
-% ƒtƒ@
+% ãƒ•ã‚¡
 fa4fu = 0;
 for ii = 1:2:49
 	fa4fu = fa4fu + sin(2*pi*ii*f_do*2^(5/12)*t4futen)/ii;
 end
 
-% ƒ\
+% ã‚½
 so4fu = 0;
 for ii = 1:2:49
 	so4fu = so4fu + sin(2*pi*ii*f_do*2^(7/12)*t4futen)/ii;
 end
 
-% ƒ‰
+% ãƒ©
 ra4fu = 0;
 for ii = 1:2:49
 	ra4fu = ra4fu + sin(2*pi*ii*f_do*2^(9/12)*t4futen)/ii;
 end
 
-% ƒ‰#
+% ãƒ©#
 ras4fu = 0;
 for ii = 1:2:49
 	ras4fu = ras4fu + sin(2*pi*ii*f_do*2^(10/12)*t4futen)/ii;
 end
 
-% ƒV
+% ã‚·
 shi4fu = 0;
 for ii = 1:2:49
 	shi4fu =shi4fu + sin(2*pi*ii*f_do*2^(11/12)*t4futen)/ii;
 end
 
-% ƒhi‚‚¢j
+% ãƒ‰ï¼ˆé«˜ã„ï¼‰
 doh4fu = 0;
 for ii = 1:2:49
 	doh4fu = doh4fu + sin(2*pi*ii*f_doh*t4futen)/ii;
 end
 
-% ƒh#i‚‚¢j
+% ãƒ‰#ï¼ˆé«˜ã„ï¼‰
 dosh4fu = 0;
 for ii = 1:2:49
 	dosh4fu = dosh4fu + sin(2*pi*ii*f_doh*2^(1/12)*t4futen)/ii;
 end
 
-% ƒŒ#i‚‚¢j
+% ãƒ¬#ï¼ˆé«˜ã„ï¼‰
 resh4fu = 0;
 for ii = 1:2:49
 	resh4fu = resh4fu + sin(2*pi*ii*f_doh*2^(3/12)*t4futen)/ii;
 end
 
-% ƒ~i‚‚¢j
+% ãƒŸï¼ˆé«˜ã„ï¼‰
 mih4fu = 0;
 for ii = 1:2:49
 	mih4fu = mih4fu + sin(2*pi*ii*f_doh*2^(4/12)*t4futen)/ii;
 end
 
-% ƒ‰i‚‚¢j
+% ãƒ©ï¼ˆé«˜ã„ï¼‰
 rah4fu = 0;
 for ii = 1:2:49
 	rah4fu = rah4fu + sin(2*pi*ii*f_doh*2^(9/12)*t4futen)/ii;
 end
 
 
-% ----- ‰¹Šy‚Ìì¬ -----
-% ’·‚¢‚Ì‚Å¬ß‚²‚Æ‚É”z—ñ‚ğì¬‚·‚éD
-% ÅŒã‚É1‚Â‚Ì”z—ñ‚É‚Ü‚Æ‚ß‚éD
+% ----- éŸ³æ¥½ã®ä½œæˆ -----
+% é•·ã„ã®ã§å°ç¯€ã”ã¨ã«é…åˆ—ã‚’ä½œæˆã™ã‚‹ï¼
+% æœ€å¾Œã«1ã¤ã®é…åˆ—ã«ã¾ã¨ã‚ã‚‹ï¼
 gym1 = [fah16, mih16, resh16, mih16, ...
     resh16, reh16, res16+fas16, reh16+fa16, ...
     dosh16+mi16, reh16+fa16, dosh16+mi16, doh16+res16, ...
@@ -1162,23 +1162,23 @@ gym44_2 = [fash4, rah8, sosh4, mih4fu];
 gym44_3 = [shill8, fasl8, shill8, fasl8, shill8, mil4fu];
 gym44 = gym44_1+gym44_2+gym44_3;
 
-% ¬ß‚ğŒq‚°‚é
+% å°ç¯€ã‚’ç¹‹ã’ã‚‹
 gymlast = [gym15(1:(length(gym15)+length(gym16)+length(gym17)-length(ze3))), ...
     [gym15((length(gym15)+length(gym16)+length(gym17)-length(ze3))+1:length(gym15)), ...
-    gym16, gym17].*ze3];            % ƒtƒF[ƒhƒAƒEƒg
+    gym16, gym17].*ze3];            % ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆ
 gym = [gym1, gym2, gym3, gym4, gym5, gym6, gym7, gym8, gym9, gym10, ...
     gym11, gym12, gym13, gym14, gym15, gym16, gym17, gym18, gym19, gym20, ...
     gym21, gym22, gym23, gym24, gym2526, gym27, gym28, gym29, gym30, ...
     gym31, gym32, gym3334, gym35, gym36, gym3738, gym39, gym40, ...
     gym41, gym42, gym43, gym44, ...
     gym11, gym12, gym13, gym14, gymlast];
-gym = (gym/max(abs(gym)))*0.99;     % ³‹K‰»
+gym = (gym/max(abs(gym)))*0.99;     % æ­£è¦åŒ–
 
 
-% ----- Ä¶ -----
-playblocking(audioplayer(gym, fs))    % gym‚ÌÄ¶
+% ----- å†ç”Ÿ -----
+playblocking(audioplayer(gym, fs))    % gymã®å†ç”Ÿ
 
-% ----- •Û‘¶ -----
-%audiowrite('Vs_GimReader_kanto.wav', gym, fs)      % gym‚ğ•Û‘¶
+% ----- ä¿å­˜ -----
+%audiowrite('Vs_GimReader_kanto.wav', gym, fs)      % gymã‚’ä¿å­˜
 
 return
