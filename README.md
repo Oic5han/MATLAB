@@ -1,2 +1,2 @@
 # free_MATLAB
-MATLABで遊んだ記録
+- MATLABで遊んだ記録を保存していきます．
