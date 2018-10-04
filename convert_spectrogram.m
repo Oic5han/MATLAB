@@ -1,66 +1,66 @@
-%% ----- “à—e -----
-% ‰¹º‚ÌƒXƒyƒNƒgƒƒOƒ‰ƒ€‚ğ‹‚ß‚é
+%% ----- å†…å®¹ -----
+% éŸ³å£°ã®ã‚¹ãƒšã‚¯ãƒˆãƒ­ã‚°ãƒ©ãƒ ã‚’æ±‚ã‚ã‚‹
 
 
-%% ----- ‰Šú‰» -----
+%% ----- åˆæœŸåŒ– -----
 clear all; close all;
 
 
-%% ----- ‰¹ƒf[ƒ^‚Ì‘I‘ğ -----
-[fileName, pathName] = uigetfile('*.wav', 'wavƒtƒ@ƒCƒ‹‚ğ‘I‘ğ', 'Multiselect', 'on');  % ‰¹ƒf[ƒ^‚Ì‘I‘ğ
+%% ----- éŸ³ãƒ‡ãƒ¼ã‚¿ã®é¸æŠ -----
+[fileName, pathName] = uigetfile('*.wav', 'wavãƒ•ã‚¡ã‚¤ãƒ«ã‚’é¸æŠ', 'Multiselect', 'on');  % éŸ³ãƒ‡ãƒ¼ã‚¿ã®é¸æŠ
 if iscell(fileName) == 0
     fileName = cellstr(fileName);
 end
-fileNumber = numel(fileName);   % ‘I‘ğ‚µ‚½ƒtƒ@ƒCƒ‹‚ÌŒÂ”
+fileNumber = numel(fileName);   % é¸æŠã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ã®å€‹æ•°
 
 
-%% ----- ƒXƒyƒNƒgƒƒOƒ‰ƒ€‚Ìì¬ -----
+%% ----- ã‚¹ãƒšã‚¯ãƒˆãƒ­ã‚°ãƒ©ãƒ ã®ä½œæˆ -----
 for aa = 1:fileNumber
-    %% ----- ’è‹` -----
-    filePath = [pathName, fileName{aa}];        % Šeƒtƒ@ƒCƒ‹‚ÌƒpƒX
-    [soundData, fs] = audioread(filePath);      % ‰¹ƒf[ƒ^‚Ì“Ç‚İ‚İ
-    Len = length(soundData);                    % “Ç‚İ‚ñ‚¾‰¹ƒf[ƒ^‚Ì’·‚³
-    nfr = 1024;                                 % ƒtƒŒ[ƒ€’·
-    nsf = 512;                                  % ƒVƒtƒg’·
-    cut_num = fix(2*(Len/nfr)-1);               % Ø‚èo‚·‰ñ”
-    Specg = zeros(nfr*4, cut_num);              % ƒt[ƒŠƒG•ÏŠ·‚µ‚½M†‚ğŠi”[‚·‚é”z—ñ
-    xx = (1:cut_num) * Len / (fs*cut_num);      % ƒvƒƒbƒg—p•Ï”
-    yy = (0:2*nfr) * fs / (nfr*4);              % ƒvƒƒbƒg—p•Ï”
+    %% ----- å®šç¾© -----
+    filePath = [pathName, fileName{aa}];        % å„ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹
+    [soundData, fs] = audioread(filePath);      % éŸ³ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
+    Len = length(soundData);                    % èª­ã¿è¾¼ã‚“ã éŸ³ãƒ‡ãƒ¼ã‚¿ã®é•·ã•
+    nfr = 1024;                                 % ãƒ•ãƒ¬ãƒ¼ãƒ é•·
+    nsf = 512;                                  % ã‚·ãƒ•ãƒˆé•·
+    cut_num = fix(2*(Len/nfr)-1);               % åˆ‡ã‚Šå‡ºã™å›æ•°
+    Specg = zeros(nfr*4, cut_num);              % ãƒ•ãƒ¼ãƒªã‚¨å¤‰æ›ã—ãŸä¿¡å·ã‚’æ ¼ç´ã™ã‚‹é…åˆ—
+    xx = (1:cut_num) * Len / (fs*cut_num);      % ãƒ—ãƒ­ãƒƒãƒˆç”¨å¤‰æ•°
+    yy = (0:2*nfr) * fs / (nfr*4);              % ãƒ—ãƒ­ãƒƒãƒˆç”¨å¤‰æ•°
 
 
-    %% ----- ƒXƒyƒNƒgƒƒOƒ‰ƒ€‚Ìì¬ -----
-    % --- Ø‚èo‚µ‚ÆŠi”[ ---
+    %% ----- ã‚¹ãƒšã‚¯ãƒˆãƒ­ã‚°ãƒ©ãƒ ã®ä½œæˆ -----
+    % --- åˆ‡ã‚Šå‡ºã—ã¨æ ¼ç´ ---
     for ii = 1:cut_num
-        data = soundData((ii-1)*nsf+1 : (ii-1)*nsf+nfr);            % Ø‚èo‚µ
-        data = fft([data .* hanning(nfr); zeros(3*nfr, 1)]);        % ƒ[ƒ‹l‚ß‚µ‚ÄFFT‚·‚é
-        Specg(:, ii) = data;                                        % Specg‚ÉŠi”[
+        data = soundData((ii-1)*nsf+1 : (ii-1)*nsf+nfr);            % åˆ‡ã‚Šå‡ºã—
+        data = fft([data .* hanning(nfr); zeros(3*nfr, 1)]);        % ã‚¼ãƒ­è©°ã‚ã—ã¦FFTã™ã‚‹
+        Specg(:, ii) = data;                                        % Specgã«æ ¼ç´
     end
 
-    % --- dB•\¦ ---
-    Specg_power_dB = 10 * log10(abs(Specg).^2);                     % dB•\¦‚É‚·‚é
+    % --- dBè¡¨ç¤º ---
+    Specg_power_dB = 10 * log10(abs(Specg).^2);                     % dBè¡¨ç¤ºã«ã™ã‚‹
 
-    % --- ³‹K‰» ---
-    Specg_power_dB = Specg_power_dB - max(Specg_power_dB(:));       % ³‹K‰»
+    % --- æ­£è¦åŒ– ---
+    Specg_power_dB = Specg_power_dB - max(Specg_power_dB(:));       % æ­£è¦åŒ–
     Specg_power_dB = Specg_power_dB(1:2*nfr+1, :);
 
 
-    %% ----- •\¦ -----
+    %% ----- è¡¨ç¤º -----
     figure;
-    Disp = imagesc(xx, yy, Specg_power_dB);                             % ƒXƒyƒNƒgƒƒOƒ‰ƒ€‚Ì•\¦
-    axis xy;                                                            % ã‰º‚ğ”½“]‚³‚¹‚é
-    title(strrep(fileName{aa}, '.wav', ''), 'Interpreter', 'none');     % ƒ^ƒCƒgƒ‹
-    xlabel('ŠÔ [s]');                                                  % ‰¡²–¼
-    ylabel('ü”g” [Hz]');                                               % c²–¼
-    caxis([-60, 0]);                                            % ƒJƒ‰[ƒo[‚Ìİ’è
-    colorbar;                                                   % ƒJƒ‰[ƒo[‚Ì•\¦
-    colormap('jet');                                            % ƒJƒ‰[ƒ}ƒbƒv‚ğ'jet'‚Éİ’è
+    Disp = imagesc(xx, yy, Specg_power_dB);                             % ã‚¹ãƒšã‚¯ãƒˆãƒ­ã‚°ãƒ©ãƒ ã®è¡¨ç¤º
+    axis xy;                                                            % ä¸Šä¸‹ã‚’åè»¢ã•ã›ã‚‹
+    title(strrep(fileName{aa}, '.wav', ''), 'Interpreter', 'none');     % ã‚¿ã‚¤ãƒˆãƒ«
+    xlabel('æ™‚é–“ [s]');                                                  % æ¨ªè»¸å
+    ylabel('å‘¨æ³¢æ•° [Hz]');                                               % ç¸¦è»¸å
+    caxis([-60, 0]);                                                    % ã‚«ãƒ©ãƒ¼ãƒãƒ¼ã®è¨­å®š
+    colorbar;                                                           % ã‚«ãƒ©ãƒ¼ãƒãƒ¼ã®è¡¨ç¤º
+    colormap('jet');                                                    % ã‚«ãƒ©ãƒ¼ãƒãƒƒãƒ—ã‚’'jet'ã«è¨­å®š
     
     
-    %% ----- •Û‘¶ -----
-    %saveas(gcf, strrep(fileName{aa}, '.wav', '.fig'));
+    %% ----- ä¿å­˜ -----
+    saveas(gcf, strrep(fileName{aa}, '.wav', '.fig'));
     dlmwrite(strrep(fileName{aa}, '.wav', '.csv'), Specg_power_dB);
 end
 
 
-%% ----- I—¹ -----
+%% ----- çµ‚äº† -----
 return
